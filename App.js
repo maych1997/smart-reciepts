@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text} from 'react-native';
-import Splash from './screens/Splash';
+import Splash from './Stack/screens/screens/Splash';
 const App = () => {
   return (
     <>
