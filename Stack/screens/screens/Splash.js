@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import {ExpandingDot} from 'react-native-animated-pagination-dots';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
 export default function Splash() {
   const [index,setIndex] = useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
+  const navigation = useNavigation();
 
   slides = [
     {
@@ -136,7 +138,7 @@ export default function Splash() {
           />
         </View>
         <View style={{position:'fixed',bottom:7,right:0}}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>navigation.navigate('NewExpense')}>
             {index==3?<Text   style={{
                       color: '#fff',
                       fontSize: 18,
