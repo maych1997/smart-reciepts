@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { TextField, Button, Menu, MenuItem } from '@mui/material';
+import React, {useState} from 'react';
+import {View, StyleSheet} from 'react-native';
+import {
+  TextInput,
+  Button,
+  Menu,
+  IconButton,
+  Provider as PaperProvider,
+} from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const NewExpense = () => {
   const [name, setName] = useState('');
@@ -10,6 +16,8 @@ const NewExpense = () => {
   const [endDate, setEndDate] = useState(new Date());
   const [currency, setCurrency] = useState('');
   const [comment, setComment] = useState('');
+
+  const myIcon = <Icon name="rocket" size={30} color="#900" />;
 
   const [startDateVisible, setStartDateVisible] = useState(false);
   const [endDateVisible, setEndDateVisible] = useState(false);
@@ -37,91 +45,98 @@ const NewExpense = () => {
 
   const closeCurrencyMenu = () => setCurrencyMenuVisible(false);
 
-  const selectCurrency = (cur) => {
+  const selectCurrency = cur => {
     setCurrency(cur);
     closeCurrencyMenu();
   };
 
   return (
-    <View style={styles.container}>
-      <TextField
-        label="Name"
-        value={name}
-        onChange={event => setName(event.target.value)}
-        InputProps={{
-          startAdornment: (
-            <Icon name="pencil" size={24} />
-          ),
-        }}
-        style={styles.input}
-      />
-      <View style={styles.dateInputs}>
-        <TextField
-          label="Start Date"
-          value={startDate.toDateString()}
-          onClick={showStartDatePicker}
-          InputProps={{
-            startAdornment: (
-              <Icon name="calendar" size={24} />
-            ),
-          }}
-          style={[styles.input, { flex: 1, marginRight: 5 }]}
+    <PaperProvider>
+      <View style={styles.container}>
+        <TextInput
+          label="Name"
+          value={name}
+          outlineStyle={{borderRadius: 20}}
+          onChangeText={text => setName(text)}
+          mode="outlined"
+          style={styles.input}
+          left={
+            <TextInput.Icon name={() => <Icon name="pencil" size={24} />} />
+          }
         />
-        <TextField
+        <TextInput
+          label="Start Date"
+          value={startDate.toLocaleDateString()}
+          outlineStyle={{borderRadius: 20}}
+          onTouchStart={showStartDatePicker}
+          mode="outlined"
+          style={styles.input}
+          left={
+            <TextInput.Icon name={() => <Icon name="calendar" size={24} />} />
+          }
+        />
+        {startDateVisible && (
+          <DateTimePicker
+            value={startDate}
+            mode="date"
+            display="default"
+            onChange={onStartDateChange}
+          />
+        )}
+        <TextInput
           label="End Date"
-          value={endDate.toDateString()}
-          onClick={showEndDatePicker}
-          InputProps={{
-            startAdornment: (
-              <Icon name="calendar" size={24} />
-            ),
-          }}
-          style={[styles.input, { flex: 1, marginLeft: 5 }]}
+          value={endDate.toLocaleDateString()}
+          onTouchStart={showEndDatePicker}
+          outlineStyle={{borderRadius: 20}}
+          mode="outlined"
+          style={styles.input}
+          left={
+            <TextInput.Icon name={() => <Icon name="calendar" size={24} />} />
+          }
+        />
+        {endDateVisible && (
+          <DateTimePicker
+            value={endDate}
+            mode="date"
+            display="default"
+            onChange={onEndDateChange}
+          />
+        )}
+        <Menu
+          visible={currencyMenuVisible}
+          onDismiss={closeCurrencyMenu}
+          anchor={
+            <Button
+              onPress={openCurrencyMenu}
+              style={{width: '100%',marginBottom:10, height:46,backgroundColor:'#fff'}}
+              mode="outlined">
+              {currency ? currency : 'Select Currency'}
+            </Button>
+          }>
+          {currencies.map((cur, index) => (
+            <Menu.Item
+              key={index}
+              onPress={() => selectCurrency(cur)}
+              title={cur}
+            />
+          ))}
+        </Menu>
+        <TextInput
+          label="Comment"
+          value={comment}
+          outlineStyle={{borderRadius: 20}}
+          onChangeText={text => setComment(text)}
+          mode="outlined"
+          style={styles.input}
+          left={
+            <TextInput.Icon
+              name={() => <Icon path={comment} size={24} color="black" />}
+              color="black"
+            />
+          }
         />
       </View>
-      {startDateVisible && (
-        <DateTimePicker
-          value={startDate}
-          mode="date"
-          display="default"
-          onChange={onStartDateChange}
-        />
-      )}
-      {endDateVisible && (
-        <DateTimePicker
-          value={endDate}
-          mode="date"
-          display="default"
-          onChange={onEndDateChange}
-        />
-      )}
-      <Menu
-        open={currencyMenuVisible}
-        onClose={closeCurrencyMenu}
-        anchor={
-          <Button onClick={openCurrencyMenu} style={{ width: '100%' }}>
-            {currency ? currency : 'Select Currency'}
-          </Button>
-        }
-      >
-        {currencies.map((cur, index) => (
-          <MenuItem key={index} onClick={() => selectCurrency(cur)}>
-            {cur}
-          </MenuItem>
-        ))}
-      </Menu>
-      <TextField
-        label="Comment"
-        value={comment}
-        onChange={event => setComment(event.target.value)}
-        InputProps={{
-          startAdornment: (
-            <Icon name="comment" size={24} />
-          ),
-        }}
-        style={styles.input}
-      />
-    </View>
+    </PaperProvider>
   );
 };
 
@@ -130,14 +145,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: 'center',
+    // backgroundColor: '#000',
   },
   input: {
     marginBottom: 10,
-  },
-  dateInputs: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
+    // backgroundColor: '#000',
   },
 });
 
