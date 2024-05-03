@@ -1,19 +1,25 @@
 import {View, Text, Image, Animated, TouchableOpacity} from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {ExpandingDot} from 'react-native-animated-pagination-dots';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
+
 export default function Splash() {
-  const [index,setIndex] = useState(0);
+  const [index, setIndex] = useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
 
-  slides = [
+  const slides = [
     {
-      text1: 'Take and Scan Reciepts from Your Phone',
+      text1: 'Take and Scan Receipts from Your Phone',
       text2:
-        ' Simply take photos of your reciepts; the system automatically recongnizes their',
+        'Simply take photos of your receipts; the system automatically recognizes them',
       imagePath: require('../../../assets/images/scan-reciepts.png'),
     },
     {
@@ -25,12 +31,11 @@ export default function Splash() {
     {
       text1: 'Create Backups of your Receipts',
       text2:
-        'Data Reliability: make copies of reciepts to preserve financial history',
+        'Data Reliability: make copies of receipts to preserve financial history',
       imagePath: require('../../../assets/images/backup.png'),
     },
-
     {
-      text1: ' Track Expenses',
+      text1: 'Track Expenses',
       text2: 'Visualize your finances with graphs',
       imagePath: require('../../../assets/images/track-expense.png'),
     },
@@ -46,9 +51,9 @@ export default function Splash() {
           justifyContent: 'center',
         }}>
         <Swiper
-         onIndexChanged={(index)=>{
-          setIndex(index);
-        }}
+          onIndexChanged={index => {
+            setIndex(index);
+          }}
           onScroll={Animated.event(
             [{nativeEvent: {contentOffset: {x: scrollX}}}],
             {
@@ -69,39 +74,43 @@ export default function Splash() {
                 }}>
                 <View
                   style={{
-                    flex: 0.5,
+                    flex: 0.2,
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
                   <Image
                     source={item.imagePath}
-                    style={{resizeMode: 'contain'}}
+                    style={{
+                      resizeMode: 'contain',
+                    }}
                   />
                 </View>
                 <View
                   style={{
-                    flex: 0.5,
+                    flex: 0.4,
                     justifyContent: 'center',
                     alignItems: 'center',
+                    paddingHorizontal: responsiveWidth(5), // Adjust horizontal padding responsively
                   }}>
                   <Text
                     style={{
                       color: '#fff',
-                      fontSize: 32,
+                      fontSize: responsiveFontSize(4), // Adjust font size responsively
                       fontWeight: '800',
                       textAlign: 'center',
-                      width: 300,
+                      maxWidth: responsiveWidth(80), // Adjust maximum width responsively
+                      marginTop: responsiveHeight(1),
                     }}>
                     {item.text1}
                   </Text>
                   <Text
                     style={{
                       color: '#b6a2f1',
-                      fontSize: 24,
-                      width: 300,
+                      fontSize: responsiveFontSize(3), // Adjust font size responsively
+                      maxWidth: responsiveWidth(80), // Adjust maximum width responsively
                       textAlign: 'center',
-                      marginTop: 20,
-                      lineHeight: 30,
+                      marginTop: responsiveHeight(3), // Adjust marginTop responsively
+                      lineHeight: responsiveHeight(4), // Adjust lineHeight responsively
                     }}>
                     {item.text2}
                   </Text>
@@ -110,7 +119,6 @@ export default function Splash() {
             );
           })}
         </Swiper>
-        <View style={{display:'flex',flexDirection:'row',paddingLeft:20,paddingRight:60}}>
         <View
           style={{
             display: 'flex',
@@ -120,7 +128,6 @@ export default function Splash() {
             justifyContent: 'center',
           }}>
           <ExpandingDot
-             
             data={slides}
             expandingDotWidth={30}
             scrollX={scrollX}
@@ -134,19 +141,29 @@ export default function Splash() {
             }}
             activeDotColor="#fff"
             inActiveDotColor="#9482cd"
-            containerStyle={{margin: 'auto',justifyContent:'center',alignItems:'center',paddingLeft:70}}
+            containerStyle={{justifyContent: 'center', alignItems: 'center'}}
           />
-        </View>
-        <View style={{position:'fixed',bottom:7,right:0}}>
-          <TouchableOpacity onPress={()=>navigation.navigate('NewExpense')}>
-            {index==3?<Text   style={{
-                      color: '#fff',
-                      fontSize: 18,
-                      textAlign: 'center',
-                      marginBottom:5,
-                    }}>Done</Text>:<Icon name={'arrow-right'} color={'#fff'} size={30}></Icon>}
+          <TouchableOpacity
+            onPress={() => navigation.navigate('GetStarted')}
+            style={{
+              position: 'absolute',
+              bottom: responsiveHeight(1), // Adjust bottom position responsively
+              right: responsiveWidth(6), // Adjust right position responsively
+            }}>
+            {index == 3 ? (
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: responsiveFontSize(2), // Adjust font size responsively
+                  textAlign: 'center',
+                  marginBottom: responsiveHeight(1), // Adjust marginBottom responsively
+                }}>
+                Done
+              </Text>
+            ) : (
+              <Icon name={'arrow-right'} color={'#fff'} size={30} /> // Adjust icon size responsively
+            )}
           </TouchableOpacity>
-        </View>
         </View>
       </View>
     </>

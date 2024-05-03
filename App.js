@@ -4,6 +4,7 @@ import Splash from './Stack/screens/screens/Splash';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import NewExpense from './Stack/screens/NewExpense';
+import GetStarted from './Stack/screens/GetStarted';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -19,6 +20,7 @@ const App = () => {
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="Splash" component={Splash}></Stack.Screen>
           <Stack.Screen name="NewExpense" component={NewExpense}></Stack.Screen>
+          <Stack.Screen name="GetStarted" component={GetStarted}></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     </>

@@ -59,6 +59,7 @@ const NewExpense = () => {
           outlineStyle={{borderRadius: 20}}
           onChangeText={text => setName(text)}
           mode="outlined"
+          textColor="#fff"
           style={styles.input}
           left={
             <TextInput.Icon name={() => <Icon name="pencil" size={24} />} />
@@ -68,6 +69,7 @@ const NewExpense = () => {
           label="Start Date"
           value={startDate.toLocaleDateString()}
           outlineStyle={{borderRadius: 20}}
+          textColor="#fff"
           onTouchStart={showStartDatePicker}
           mode="outlined"
           style={styles.input}
@@ -87,6 +89,7 @@ const NewExpense = () => {
           label="End Date"
           value={endDate.toLocaleDateString()}
           onTouchStart={showEndDatePicker}
+          textColor="#fff"
           outlineStyle={{borderRadius: 20}}
           mode="outlined"
           style={styles.input}
@@ -108,7 +111,12 @@ const NewExpense = () => {
           anchor={
             <Button
               onPress={openCurrencyMenu}
-              style={{width: '100%',marginBottom:10, height:46,backgroundColor:'#fff'}}
+              style={{
+                width: '100%',
+                marginBottom: 10,
+                height: 46,
+                backgroundColor: '#fff',
+              }}
               mode="outlined">
               {currency ? currency : 'Select Currency'}
             </Button>
@@ -125,6 +133,7 @@ const NewExpense = () => {
           label="Comment"
           value={comment}
           outlineStyle={{borderRadius: 20}}
+          textColor="#fff"
           onChangeText={text => setComment(text)}
           mode="outlined"
           style={styles.input}
@@ -145,11 +154,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: 'center',
-    // backgroundColor: '#000',
+    backgroundColor: '#000',
   },
   input: {
     marginBottom: 10,
-    // backgroundColor: '#000',
+    backgroundColor: '#000',
+    color: '#fff',
   },
 });
 
