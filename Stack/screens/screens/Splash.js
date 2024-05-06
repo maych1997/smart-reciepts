@@ -99,7 +99,7 @@ export default function Splash() {
                       fontWeight: '800',
                       textAlign: 'center',
                       maxWidth: responsiveWidth(80), // Adjust maximum width responsively
-                      marginTop: responsiveHeight(1),
+                      marginTop: responsiveHeight(15),
                     }}>
                     {item.text1}
                   </Text>

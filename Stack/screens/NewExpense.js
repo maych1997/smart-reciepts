@@ -129,6 +129,7 @@ const NewExpense = () => {
             />
           ))}
         </Menu>
+        <View style={{justifyContent:'center'}}>
         <TextInput
           label="Comment"
           value={comment}
@@ -137,13 +138,11 @@ const NewExpense = () => {
           onChangeText={text => setComment(text)}
           mode="outlined"
           style={styles.input}
-          left={
-            <TextInput.Icon
-              name={() => <Icon path={comment} size={24} color="black" />}
-              color="black"
-            />
-          }
         />
+        <View style={{position:'absolute',alignSelf:'flex-end',left:15}}>
+          <Icon name={'home'} size={30} color={'#fff'}></Icon>
+        </View>
+        </View>
       </View>
     </PaperProvider>
   );
@@ -160,6 +159,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: '#000',
     color: '#fff',
+    paddingLeft:40
   },
 });
 
