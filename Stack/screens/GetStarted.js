@@ -6,58 +6,62 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import {useNavigation} from '@react-navigation/native';
+import Header from './Header';
 
 export default function GetStarted() {
   const navigation = useNavigation();
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: '#000',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
+    <>
+      <Header title={'Smart Recipies'} />
       <View
         style={{
-          flex: 0.9,
-          justifyContent: 'center',
-          width: responsiveWidth(90),
+          flex: 1,
+          backgroundColor: '#000',
           alignItems: 'center',
+          justifyContent: 'center',
         }}>
-        <Text
+        <View
           style={{
-            color: '#d1d7db70',
-            fontSize: responsiveFontSize(2.56),
-            textAlign: 'center',
-          }}>
-          You don't seem to have any reports defined at the moment. Try clicking
-          + (plus) button to get started.
-        </Text>
-      </View>
-
-      <View
-        style={{
-          flex: 0.13,
-          justifyContent: 'flex-end',
-          alignSelf: 'flex-end',
-          right: responsiveWidth(6),
-        }}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('NewExpense')}
-          style={{
-            backgroundColor: '#6C50F2',
-            width: responsiveWidth(12),
-            height: responsiveHeight(6),
-            alignItems: 'center',
+            flex: 0.9,
             justifyContent: 'center',
-            borderRadius: 50,
+            width: responsiveWidth(90),
+            alignItems: 'center',
           }}>
-          <Text style={{color: '#fff', fontSize: responsiveFontSize(3)}}>
-            +
+          <Text
+            style={{
+              color: '#d1d7db70',
+              fontSize: responsiveFontSize(2.56),
+              textAlign: 'center',
+            }}>
+            You don't seem to have any reports defined at the moment. Try
+            clicking + (plus) button to get started.
           </Text>
-        </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            flex: 0.13,
+            justifyContent: 'flex-end',
+            alignSelf: 'flex-end',
+            right: responsiveWidth(6),
+          }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('NewExpense')}
+            style={{
+              backgroundColor: '#6C50F2',
+              width: responsiveWidth(12),
+              height: responsiveHeight(6),
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 50,
+            }}>
+            <Text style={{color: '#fff', fontSize: responsiveFontSize(3)}}>
+              +
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </>
   );
 }
